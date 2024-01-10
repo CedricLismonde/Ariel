@@ -1,0 +1,306 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="favicon.png" rel="icon" type="image/png">
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+    
+</head>
+
+<body>
+
+            <header>
+                <a href="/"> return </a>
+
+                
+                <div class="header_inner">
+                    
+                    <form action="/search" method="POST">
+                        {% csrf_token %}
+
+                        <div class="left-side">
+                            <!-- Logo  can be remove -->
+                            <div id="logo" class=" uk-hidden@s">
+                                <a href="home.html">
+                                    <b><h1 style="text-transform: uppercase;">Social Book</h1></b>
+                                </a>
+                            </div>
+
+                            <!--<div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
+                                <i class="uil-bars"></i>
+                            </div>-->
+
+                            <div class="header_search">
+                                
+                                <input type="text" name="search_txt" placeholder="Search for recipe">
+                                
+
+                                
+                                <!--<div class="icon-search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                </div>-->
+
+                            </div>
+                            <div>
+                                <button type="submit"> Search  </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="right-side lg:pr-4">
+                       
+                        
+                         <!-- Notification -->
+
+                        <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M12 22a2.02 2.02 0 0 1-2.01-2h4a2.02 2.02 0 0 1-.15.78a2.042 2.042 0 0 1-1.44 1.18h-.047A1.922 1.922 0 0 1 12 22zm8-3H4v-2l2-1v-5.5a8.065 8.065 0 0 1 .924-4.06A4.654 4.654 0 0 1 10 4.18V2h4v2.18c2.579.614 4 2.858 4 6.32V16l2 1v2z" fill="currentColor"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Notification </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong class="text-link" >Taiye</strong>  
+                                                <span class="text-link"> is following you  </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+
+                        <!-- Messages DM -->
+
+                        <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="0.5em" height="0.5em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Messages </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Taiye </strong> <time> 6:43 PM</time>
+                                            <p> hi tomi </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>
+
+                        <!-- profile -->
+
+                        <a href="#">
+                            <img src="{{user_profile.profile_picture.url}}" class="header-avatar" alt="">
+                        </a>
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <li><a href="/profile/{{user.username}}"> Profile </a> </li>
+                                <li><a href="settings"> Account setting </a> </li>
+                                <li><a href="logout"> Log Out </a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </header>
+
+            <div class="container m-auto">
+
+                <!--<h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>--->
+
+                <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+
+                    <!-- left sidebar-->
+                    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+
+                        <!-- post 1  see index in core/view.py-->
+                        {% for post in posts reversed %}
+                        <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+    
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4">
+                                    <!--<a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">  
+                                            <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a>-->
+                                    <a href="/profile/{{post.user}}">
+                                        <span class="block font-semibold">@{{post.user}}</span>
+                                    </a>
+                                </div>
+                              <div>
+                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right"> 
+                                         
+
+                                    <a href="/comment/" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                        <i class="uil-trash-alt mr-1"></i>  placeholder
+                                    </a> 
+
+                                
+                                </div>
+                              </div>
+                            </div>
+    
+                            
+                            <div uk-lightbox>
+                                <a href="{{ post.image.url }}">  
+                                    <img src="{{ post.image.url }}" alt="">
+                                </a>
+                            </div>
+                            
+    
+                            <div class="py-3 px-4 space-y-3"> 
+                               
+                                <div class="flex space-x-4 lg:font-bold"> <!-- like return to index -->
+                                    <a href="/like_post?recipe_id={{post.recipe_id}}" class="flex items-center space-x-2">
+                                        <div class="p-2 rounded-full text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                            </svg>
+                                            {% if post.nb_likes == 0 %}
+                                            <p>
+                                                No likes
+                                            </p>
+                                            {% elif post.nb_likes == 1 %}
+                                            <p>
+                                                Liked by {{post.nb_likes}} person
+                                            </p>
+                                            {% else %}
+                                            <p>
+                                                Liked by {{post.nb_likes}} people
+                                            </p>
+                                            {% endif %}
+                                        
+                                        </div>
+
+                                        
+                                    </a>
+                                    <a href="#" class="flex items-center space-x-2 flex-1 justify-end">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/></g></svg>
+                                        
+                                    </a>
+                                </div>
+
+                                <p>
+                                    <h1><strong>{{post.recipe_title}}</strong></h1>
+                                    
+                                </p>
+                                <p>
+                                    {{post.preparation_step}}
+                                </p>
+
+                            </div>
+                            <div class="comment">
+                                <div class="comment_upload_area">
+                                    <form action="/uploadCom" method="POST">
+                                        {% csrf_token %}
+                                
+
+                                    <input type="hidden" value="{{post.recipe_id}}" name="recipe_id"/>
+                                    <input type="hidden" value="{{user.username}}" name="user"/>
+
+                                    <textarea  name="comment_txt" placeholder="type a comment..."></textarea>
+                                                <br/>
+
+                                    <a title="" data-ripple="">
+                                        <button type="submit" style="background-color: #ffc0cb; border: #ffc0cb;">Upload Comment</button>
+                                    </a>
+                                    </form>
+
+                                </div>
+
+                                <div class="comment_area">
+                                    {% for comment in comment_list reversed %}
+                                    <br>
+                                    <br>
+                                    <p>
+                                        <h1>
+                                            <strong>
+                                                {{comment.user}}
+                                            </strong>
+                                        </h1>
+                                    </p>
+
+                                    <p>
+                                        {{comment.txt}}
+                                    </p>
+
+
+
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+
+                </div>               
+          
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+</body>
+
+
+</html>

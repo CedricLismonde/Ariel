@@ -3,12 +3,12 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Recipe, LikeRecipe,FollowersCount
+from .models import Profile, Recipe, LikeRecipe,FollowersCount,Comment
 from itertools import chain
 
 # Create your views here.
 
-@login_required(login_url='signin') # need to be remove |need bug fix before
+@login_required(login_url='signin')
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
@@ -24,15 +24,73 @@ def index(request):
         feed.append(feed_lists)
     
     feed_list = list(chain(*feed))
-        
-    
-    
+    #print(feed)
+
     #posts= Recipe.objects.all()
     return render(request,'index.html',{'user_profile':user_profile,
                                         'posts':feed_list
                                         }
                   
                   )    
+
+#the goal is when you click on comment you see the post/recipe that you want to comment an another page
+#
+'''
+def comment(request):
+    recipe_id = request.GET.get("recipe_id")
+    recipe=Recipe.objects.get(recipe_id=recipe_id)
+    
+    post=[]
+    post.append(recipe)
+
+    
+    context ={'posts':post, 
+              }
+    
+    return render(request,'comment.html',context)
+'''
+
+def comment(request):
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+    
+    recipe_id = request.GET.get("recipe_id")
+    recipe=Recipe.objects.get(recipe_id=recipe_id)
+    
+    post=[]
+    post.append(recipe)
+    
+    comments=[]
+    comments_of_recipe=Comment.objects.filter(recipe_id=recipe_id)
+    comments.append(comments_of_recipe)
+    comment_list= list(chain(*comments))
+    
+    context ={'posts':post,
+              'comment_list':comment_list,
+              'user_profile':user_profile
+              }
+    
+    return render(request,'comment.html',context)
+
+
+@login_required(login_url='signin')
+def uploadCom(request):
+    if request.method == 'POST':
+        recipe_id = request.POST['recipe_id']
+        user = request.user.username
+        txt = request.POST['comment_txt']
+        
+        new_comment = Comment.objects.create(user=user,
+                                             recipe_id=recipe_id,
+                                             txt=txt
+                                             )
+        new_comment.save()
+        return redirect('/comment?recipe_id='+recipe_id)
+        
+    else:
+        return redirect('/')
+
+###
 
 @login_required(login_url='signin')
 def upload(request):
@@ -53,6 +111,7 @@ def upload(request):
         
     else:    
         return redirect('/')
+
 
 
 @login_required(login_url='signin')
@@ -81,6 +140,9 @@ def like_post(request):
         return redirect('/')
 
 def search(request):
+    #if request.method =="POST":
+    #    request.POST['']
+    
     return render(request, 'search.html')
 
 @login_required(login_url='signin')
@@ -104,7 +166,6 @@ def follow(request):
     else:   
         return redirect('/')
         
-
 
 @login_required(login_url='signin')
 def profile(request,pk):
@@ -145,13 +206,16 @@ def settings(request):
             image=user_profile.profile_picture #
         else:
             image=request.FILES.get('image')
+            
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
+        email = request.POST['email']
         #must do for the correct fields
             
         user_profile.firstname=firstname
         user_profile.lastname=lastname
         user_profile.profile_picture=image
+        user_profile.email=email
         user_profile.save()
         
         return redirect('settings')
@@ -168,7 +232,7 @@ def signup(request):
         password1=  request.POST['password1']
         password2=  request.POST['password2']
         if password1==password2:
-            if User.objects.filter(email=email).exists():
+            if User.objects.filter(email=email).exists(): 
                 messages.info(request,'Email taken')
                 return redirect('signup')
             elif User.objects.filter(username=username).exists():
@@ -193,7 +257,11 @@ def signup(request):
                 user_model = User.objects.get(username=username)
                     #maybe add fname and all
                 new_profile = Profile.objects.create(user=user_model,
-                                                     id_user=user_model.id)
+                                                     id_user=user_model.id,
+                                                     firstname=firstname,
+                                                     lastname=lastname,
+                                                     email=email
+                                                     )
                 new_profile.save()
                 
                 return redirect('settings')
@@ -213,6 +281,15 @@ def signin(request):
         user = auth.authenticate(username=username,
                                 password=password
                                 )
+        '''  
+        print(username,password,user)
+        if user is None:
+            user = auth.authenticate(email=username,
+                                    password=password
+                                    )
+            
+        print(username,password,user)
+        '''
         if user is not None:
             auth.login(request, user)
             return redirect('/')
@@ -233,5 +310,5 @@ def logout(request):
 
 
 
-#force login (only for comment) #1:46:00
+#1:46:00
 #@login_required(login_url='signin')

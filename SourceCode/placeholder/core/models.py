@@ -43,6 +43,18 @@ class Recipe(models.Model):#Post
     
     def __str__(self):
         return self.user
+    
+
+class Comment(models.Model):
+    comment_id = models.UUIDField(primary_key=True,default=uuid.uuid4)
+    recipe_id = models.CharField(max_length=100)
+    user = models.CharField(max_length=100)
+    txt = models.CharField(max_length=400,default="None")
+    
+    
+    def __str__(self):
+        return self.user
+  
 
 class LikeRecipe(models.Model):#LikePost
     post_id = models.CharField(max_length=500)
