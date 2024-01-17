@@ -35,7 +35,9 @@ class Recipe(models.Model):#Post
         #cuisine_type =
         #cooking_time =
     preparation_step = models.CharField(max_length=400,default="None")
-        #tags =
+        
+    tags = models.CharField(max_length=2000,blank=True)
+        
     image = models.ImageField(upload_to='post_images')
         #video =
     nb_likes = models.IntegerField(default=0)
@@ -44,6 +46,12 @@ class Recipe(models.Model):#Post
     def __str__(self):
         return self.user
     
+    def getTags(self):
+        
+        T=self.tags.split(' ')
+        for i in range(len(T)):
+            T[i]=('#'+T[i][0].upper()+T[i][1:].lower())
+        return T
 
 class Comment(models.Model):
     comment_id = models.UUIDField(primary_key=True,default=uuid.uuid4)
