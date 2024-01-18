@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-fc_6&uxr(!!$y!+t&q)o6kosls!+(qtbjd-n4a5-jtoc*575yw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'placeholder.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'A6m5eE4eVMMmKlwk',
+        'HOST': 'db.sstkuiznfhxhewtxpagq.supabase.co',
+        'PORT': '5432',
     }
 }
 
@@ -117,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build', 'static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
 # Default primary key field type
