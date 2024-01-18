@@ -1,2 +1,2 @@
 django
-sqlite3
+psycopg2
