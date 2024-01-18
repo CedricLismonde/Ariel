@@ -34,7 +34,7 @@ class Recipe(models.Model):#Post
         #category = models.CharField(max_length=200)
         #cuisine_type =
         #cooking_time =
-    preparation_step = models.CharField(max_length=400,default="None")
+    preparation_step = models.CharField(max_length=2000,default="None")
         
     tags = models.CharField(max_length=2000,blank=True)
         
@@ -46,12 +46,7 @@ class Recipe(models.Model):#Post
     def __str__(self):
         return self.user
     
-    def getTags(self):
-        
-        T=self.tags.split(' ')
-        for i in range(len(T)):
-            T[i]=('#'+T[i][0].upper()+T[i][1:].lower())
-        return T
+    
 
 class Comment(models.Model):
     comment_id = models.UUIDField(primary_key=True,default=uuid.uuid4)

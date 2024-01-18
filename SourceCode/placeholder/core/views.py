@@ -7,6 +7,15 @@ from .models import Profile, Recipe, LikeRecipe,FollowersCount,Comment
 from itertools import chain
 
 # Create your views here.
+def getTags(x):    
+    T=x.split(' ')
+    a=""
+    for i in range(len(T)):
+        T[i]=('#'+T[i][0].upper()+T[i][1:].lower())
+    for i in T:
+        a+=i+" "
+    return a
+
 
 @login_required(login_url='signin')
 def index(request):
@@ -100,7 +109,7 @@ def upload(request):
         image = request.FILES.get('image_upload')
         recipe_title = request.POST['recipe_title']
         recipe_text = request.POST['recipe_text']
-        tags = request.POST['tags']
+        tags = getTags(request.POST['tags'])
         
         new_recipe = Recipe.objects.create(user=user,
                                            image=image,
@@ -140,13 +149,14 @@ def like_post(request):
         recipe.nb_likes = recipe.nb_likes-1
         recipe.save()
         return redirect('/')
-
+'''
 def search(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
     
     if request.method == "POST":
         username=request.POST['username']
+        
         username_object = User.objects.filter(username__icontains=username)
         
         username_profile = []
@@ -159,10 +169,49 @@ def search(request):
             username_profile_list.append(profile_lists)
         username_profile_list=list(chain(*username_profile_list))
         
-    return render(request, 'search.html',
-                  {'user_profile': user_profile,
-                   'username_profile_list':username_profile_list   
-                   } )
+        return render(request, 'search.html',
+                      {'user_profile': user_profile,
+                       'username_profile_list':username_profile_list   
+                       } )
+'''
+def search(request):
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+    
+    if request.method == "POST":
+        
+        username=request.POST['username']
+        if(username[0]!="#"):
+            username_object = User.objects.filter(username__icontains=username)
+            
+            username_profile = []
+            username_profile_list = []
+    
+            for users in username_object:
+                username_profile.append(users.id)
+            for ids in username_profile:
+                profile_lists=Profile.objects.filter(id_user=ids)
+                username_profile_list.append(profile_lists)
+            username_profile_list=list(chain(*username_profile_list))
+            
+            return render(request, 'search.html',
+                          {'user_profile': user_profile,
+                           'username_profile_list':username_profile_list   
+                           } )
+        else:
+            username=username[1:]
+            recipe_profile = Recipe.objects.filter(tags__icontains=username)
+            
+           # recipe_profile = []
+
+    
+#            for recipe in recipe_object:
+#                recipe_profile.append(recipe.recipe_id)
+
+            return render(request, 'search.html',
+                          {'user_profile': user_profile,
+                           'username_profile_list':recipe_profile   
+                           } )
 
 @login_required(login_url='signin')
 def follow(request):
