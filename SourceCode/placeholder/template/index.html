@@ -44,7 +44,7 @@
 
                             <div class="header_search">
                                 
-                                <input type="text" name="username" placeholder="Search for user">
+                                <input type="text" name="username" placeholder="Search for user or recipe tag with #">
                                 
 
                                 
@@ -244,15 +244,13 @@
                                     </a>
                                 </div>
                               <div>
-                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
-                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right"> 
-                                         
-                                    <a href="/comment?recipe_id={{post.recipe_id}}" class="flex items-center px-3 py-2 text-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
-                                         Comment
-                                    </a> 
+   
+                                <a href="/comment?recipe_id={{post.recipe_id}}" class="flex items-center px-3 py-2 text-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                     Comment
+                                </a> 
 
                                 
-                                </div>
+                                
                               </div>
                             </div>
     
@@ -262,8 +260,8 @@
                                     <img src="{{ post.image.url }}" alt="">
                                 </a>
                             </div>
-                            
-    
+
+                            <p>{{post.tags}}</p>
                             <div class="py-3 px-4 space-y-3"> 
                                
                                 <div class="flex space-x-4 lg:font-bold">
@@ -290,15 +288,14 @@
 
                                         
                                     </a>
-                                    <a href="#" class="flex items-center space-x-2 flex-1 justify-end">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/></g></svg>
-                                        
-                                    </a>
+                                   
+                                    
                                 </div>
-
+                                
                                 <p>
                                     <h1><strong>{{post.recipe_title}}</strong></h1>
-                                    <a >{{post.preparation_step}}</a>
+                                    <p>{{post.preparation_step|linebreaks}}</p>
+
                                 </p>
 
                             </div>
@@ -307,75 +304,7 @@
                         {% endfor %}
                         
                     </div>
-                    <!-- right sidebar-->
-                    <div class="lg:w-5/12">
 
-                        <div class="bg-white  shadow-md rounded-md overflow-hidden">
-
-                            <div class="bg-gray-50  border-b border-gray-100 flex items-baseline justify-between py-4 px-6 ">
-                                <h2 class="font-semibold text-lg">Users You Can Follow</h2>
-                                <a href="#"> Refresh</a>
-                            </div>
-                           
-                            <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 ">
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> tomi_ml </span>
-                                            <span class="block capitalize text-sm"> 320k followers </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-1.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> taiye </span>
-                                            <span class="block capitalize text-sm"> New user </span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-5.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> kayode </span>
-                                            <span class="block capitalize text-sm"> 20.7k followers </span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-                                <div class="flex items-center justify-between py-3">
-                                    <div class="flex flex-1 items-center space-x-4">
-                                        <a href="profile.html">
-                                            <img src="{% static 'assets/images/avatars/avatar-7.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
-                                        </a>
-                                        <div class="flex flex-col">
-                                            <span class="block capitalize font-semibold"> faith_do </span>
-                                            <span class="block capitalize text-sm"> 100.5k followers </span>
-                                        </div>
-                                    </div>
-                                    
-                                    <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                      
-
-                    </div>
 
                 </div>               
           

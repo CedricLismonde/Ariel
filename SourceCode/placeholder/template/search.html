@@ -161,19 +161,67 @@
                                         <span class="block font-semibold">@{{users.user}}</span>
                                     </a>
                                 </div>
+                                <a href="/comment?recipe_id={{users.recipe_id}}" class="flex items-center px-3 py-2 text-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                    Comment
+                               </a> 
                             </div>
-
+                            
                             <div uk-lightbox>
                                 <a href="{{ users.profile_picture.url }}">  
                                     <img src="{{ users.profile_picture.url }}" alt="">
                                 </a>
-                            </div>
+                                <a href="{{ users.image.url }}">  
+                                    <img src="{{ users.image.url }}" alt="">
+                                </a>
+                                <p>{{post.tags}}</p>
+                                <p>
+                                    <h1><strong>{{users.recipe_title}}</strong></h1>
+                                    <p>{{users.preparation_step|linebreaks}}</p>
 
+                                </p>
+                            </div>
     
                         </div>
                         {% endfor %}
-                        
                     </div>
+                     <!-- Right sidebar
+                    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+                        {% for users in username_profile_list %}
+                        <div>
+                            <div class="lg:w-5/12">
+
+                                <div class="bg-white  shadow-md rounded-md overflow-hidden">
+        
+                                    <div class="bg-gray-50  border-b border-gray-100 flex items-baseline justify-between py-4 px-6 ">
+                                        <h2 class="font-semibold text-lg">Users You Can Follow</h2>
+                                    </div>
+                                   
+                                    <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 ">
+        
+                                        <div class="flex items-center justify-between py-3">
+                                            <div class="flex flex-1 items-center space-x-4">
+                                                <a href="profile.html">
+                                                    <img src="{% static 'assets/images/avatars/avatar-2.jpg' %}" class="bg-gray-200 rounded-full w-10 h-10">
+                                                </a>
+                                                <div class="flex flex-col">
+                                                    <span class="block capitalize font-semibold"> tomi_ml </span>
+                                                    <span class="block capitalize text-sm"> 320k followers </span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> Follow </a>
+                                        </div>
+        
+        
+                                    </div>
+        
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                        -->
+                    
                 
 
                 </div>               

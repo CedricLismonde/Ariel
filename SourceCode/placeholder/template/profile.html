@@ -157,7 +157,7 @@
 					
 										{% for post in user_posts %}
 										<li>
-											<!--Should display the recipe post-->
+											<a href="/comment?recipe_id={{post.recipe_id}}">view post</a>
 											<a class="strip" href="{{post.image.url}}" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
 											<img src="{{post.image.url}}" style="height: 250px; width: 300px;" alt=""></a>
 										</li>
