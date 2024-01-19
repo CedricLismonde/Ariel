@@ -44,7 +44,7 @@
 
                             <div class="header_search">
                                 
-                                <input type="text" name="search_txt" placeholder="Search for recipe">
+                                <input type="text" name="username" placeholder="Search for recipe">
                                 
 
                                 
@@ -161,9 +161,11 @@
                                         <span class="block font-semibold">@{{users.user}}</span>
                                     </a>
                                 </div>
+                                {% if users.recipe_id != Null %}
                                 <a href="/comment?recipe_id={{users.recipe_id}}" class="flex items-center px-3 py-2 text-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
                                     Comment
                                </a> 
+                                {% endif %}
                             </div>
                             
                             <div uk-lightbox>
